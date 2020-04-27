@@ -14,6 +14,7 @@
       },
       computed: {
         isActive(){
+        	//$route指的是当前活跃的路由
           return this.$route.path.indexOf(this.path)
         }
       },

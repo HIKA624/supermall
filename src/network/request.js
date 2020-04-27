@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+export const BANNER = 'banner'
+export const RECOMMEND = 'recommend'
+
 export function request(config) {
 	// 1.创建axios的实例
 	const instance = axios.create({

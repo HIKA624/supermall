@@ -12,7 +12,7 @@
 
 <style scoped>
   .tab-bar {
-    width: 320px;
+    width: 100%;
     height: 49px;
     display: flex;
     justify-content:center;

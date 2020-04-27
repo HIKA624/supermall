@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="">
+  <div class="goods-item" @click="itemClick">
+    <img  v-lazy="showImage" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -19,7 +19,27 @@
 					return {}
         }
       }
-    }
+    },
+    computed: {
+			//图片懒加载
+			showImage() {
+				return this.goodsItem.image || this.goodsItem.show.img
+      }
+    },
+		methods: {
+			//图片加载完成的监听事件通过事件总线上传，目的是为了解决BetterScroll滚动的bug
+			imageLoad() {
+				if(this.$route.path.indexOf('/home')) {
+					this.$bus.$emit('/homeItemImgLoad')
+        }else if(this.$route.path.indexOf('/detail')) {
+					this.$bus.$emit('/datailItemImgLoad')
+        }
+			},
+      //路由跳转到详情页
+			itemClick() {
+				this.$router.push('/detail/' + this.goodsItem.iid)
+			}
+		}
 	}
 </script>
 
