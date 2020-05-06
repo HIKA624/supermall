@@ -1,17 +1,24 @@
 <template>
   <div class="shop-info">
+
+    <!--商店的logo和名字-->
     <div class="shop-top">
       <img :src="shop.logo">
       <span class="title">{{shop.name}}</span>
     </div>
+
     <div class="shop-middle">
       <div class="shop-middle-item shop-middle-left">
+
+        <!--商家信息展示中的总销量显示-->
         <div class="info-sells">
           <div class="sells-count">
             {{shop.sells | sellCountFilter}}
           </div>
           <div class="sells-text">总销量</div>
         </div>
+
+        <!--商家信息展示中的全部宝贝数量显示-->
         <div class="info-goods">
           <div class="goods-count">
             {{shop.goodsCount}}
@@ -19,6 +26,8 @@
           <div class="goods-text">全部宝贝</div>
         </div>
       </div>
+
+      <!--商家信息右侧的评分内容-->
       <div class="shop-middle-item shop-middle-right">
         <table>
           <tr v-for="(item, index) in shop.score" :key="index">
@@ -29,6 +38,7 @@
         </table>
       </div>
     </div>
+
     <div class="shop-bottom">
       <div class="enter-shop">进店逛逛</div>
     </div>

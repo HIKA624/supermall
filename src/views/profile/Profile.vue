@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div id="profile">
     <nav-bar class="nav-bar"><div slot="center">HIKA商城</div></nav-bar>
 
     <!--上方的用户栏-->

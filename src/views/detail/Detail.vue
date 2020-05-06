@@ -6,22 +6,41 @@
             ref="scroll"
             :probe-type="3"
             @scroll="contentScroll" >
+      <!--详情页轮播图展示-->
       <detail-swiper :top-images="topImages"/>
 
-      <div>
-        <ul v-for="item in this.$store.state.cartlist">
-          <li>{{item}}</li>
-        </ul>
-      </div>
+      <!--<div>-->
+        <!--<ul v-for="item in this.$store.state.cartlist">-->
+          <!--<li>{{item}}</li>-->
+        <!--</ul>-->
+      <!--</div>-->
+
+      <!--详情页轮播图下的商品信息显示-->
       <detail-base-info :goods="goods"/>
+
+      <!--商品信息下的商家相关信息显示-->
       <detail-shop-info :shop="shop"/>
+
+      <!--商家信息下的详细数据的显示（图片）-->
       <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"/>
+
+      <!--详细数据下的商品参数的显示-->
       <detail-param-info ref="param" :param-info="paramInfo"/>
+
+      <!--商品参数下的评论信息的显示-->
       <detail-comment-info ref="comment" :comment-info="commentInfo"/>
+
+      <!--评论信息下的推荐商品的显示-->
       <goods-list ref="recommend" :goods="recommends"/>
     </scroll>
+
+    <!--回到顶部按钮-->
     <back-top class="back-top" @click.native="backClick" v-show="isShowBackTop"/>
+
+    <!--toast（提示信息）的显示-->
     <toast :message="message" :isToastShow="isToastShow"></toast>
+
+    <!--详情页的底部工具栏的显示-->
     <detail-bottom-bar @addCart="addToCart"/>
   </div>
 </template>
@@ -82,7 +101,7 @@
       }
     },
     created() {
-			//保存传入的iid
+			//保存传入的iid，根据iid显示对应的商品
 			this.iid = this.$route.params.iid
 
       //根据iid请求数据
@@ -95,7 +114,6 @@
       })
 
 	      // 1.获取顶部的图片轮播数据
-	      // console.log(res);
 	      const data = res.result;
 	      this.topImages = data.itemInfo.topImages
 
@@ -157,9 +175,11 @@
 	      //   console.log(i);
         // }
 		  },
+      //回到顶部按钮
 		  backClick() {
 			  this.$refs.scroll.scrollTo(0,0,500)
 		  },
+      //加入购物车
 		  addToCart() {
 		  	const product = {}
 		  	product.image = this.topImages[0]
@@ -168,7 +188,9 @@
 		  	product.price = this.goods.realPrice
 		  	product.iid = this.iid
 
+        //actions方法，里面有具体说明
         this.addcart(product).then(res => {
+	        //加入购物车后显示提示消息
         	this.message = res
           this.isToastShow = true
 

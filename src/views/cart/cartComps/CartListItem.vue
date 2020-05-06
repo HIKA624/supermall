@@ -11,7 +11,7 @@
       <div class="item-desc">商品描述: {{itemInfo.desc}}</div>
       <div class="info-bottom">
         <div class="item-price left">¥{{itemInfo.price}}</div>
-        <div class="delete" @click="deleteItem">删除商品</div>
+        <div class="delete" @click="deleteItem(itemInfo.iid)">删除商品</div>
         <button class="minus" @click="minus">-</button>
         <div class="item-count right">x{{itemInfo.count}}</div>
         <button class="plus" @click="plus">+</button>
@@ -51,10 +51,8 @@
 		    this.itemInfo.checked = !this.itemInfo.checked;
 		    console.log('---');
 	    },
-	    deleteItem() {
-	    	let iid = this.itemInfo.iid
-	    	let index = this.$store.getters.cartList.findIndex(item => item.id === iid)
-		    this.$store.getters.cartList.splice(index,2)
+	    deleteItem(id) {
+	    	this.$store.commit('delCartListData',id)
 	    },
 	    plus() {
 	    	this.itemInfo.count ++

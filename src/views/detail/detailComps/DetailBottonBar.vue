@@ -29,7 +29,7 @@
     methods: {
 	    addToCart() {
 	    	this.$emit('addCart')
-		    console.log('加入购物车');
+		    console.log(this.$store.getters.cartList);
 	    }
     }
 	}

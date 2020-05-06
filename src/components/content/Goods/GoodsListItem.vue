@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img  v-lazy="showImage" alt="" @load="imageLoad">
+    <img  v-lazy="showImage" :key="showImage" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -15,15 +15,13 @@
     props: {
 			goodsItem: {
 				type: Object,
-        default() {
-					return {}
-        }
+        default: {}
       }
     },
     computed: {
 			//图片懒加载
 			showImage() {
-				return this.goodsItem.image || this.goodsItem.show.img
+				return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
       }
     },
 		methods: {

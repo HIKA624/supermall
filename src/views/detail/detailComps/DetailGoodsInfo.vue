@@ -29,7 +29,7 @@
     },
     methods: {
 	    imgLoad() {
-        // 判断, 所有的图片都加载完了, 那么进行一次回调就可以了.
+        // 判断, 所有的图片都加载完了, 那么进行一次回调就可以了.调用的是一个refresh，目的是防止出现滚动的bug
         if (++this.counter === this.imagesLength) {
           this.$emit('imageLoad');
         }

@@ -1,19 +1,30 @@
 <template>
   <div v-if="Object.keys(goods).length !== 0" class="base-info">
+    <!--商品标题-->
     <div class="info-title">{{goods.title}}</div>
+
     <div class="info-price">
+      <!--打折后的价格-->
       <span class="n-price">{{goods.newPrice}}</span>
+      <!--打着前的价格-->
       <span class="o-price">{{goods.oldPrice}}</span>
+      <!--促销-->
       <span v-if="goods.discount" class="discount">{{goods.discount}}</span>
     </div>
+
     <div class="info-other">
+      <!--价格下方的销量，收藏和72小时发货的显示-->
       <span>{{goods.columns[0]}}</span>
       <span>{{goods.columns[1]}}</span>
       <span>{{goods.services[goods.services.length-1].name}}</span>
     </div>
+
     <div class="info-service">
+      <!--退货补运费，全国包邮，7天退货的信息显示-->
       <span class="info-service-item" v-for="index in goods.services.length-1" :key="index">
+        <!--小图标显示-->
         <img :src="goods.services[index-1].icon">
+        <!--文字显示-->
         <span>{{goods.services[index-1].name}}</span>
       </span>
     </div>

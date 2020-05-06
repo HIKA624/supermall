@@ -26,9 +26,10 @@
       }
     },
     methods: {
+			//用于向父组件提供对应的index，从而达到切换商品种类的目的
 	    itemClick(index) {
         this.currentIndex = index;
-        this.$emit('tabClick',index)
+        this.$emit('itemClick',index)
       }
     }
 	}

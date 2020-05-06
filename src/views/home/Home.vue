@@ -4,7 +4,7 @@
       <div slot="center">购物街</div>
     </nav-bar>
     <tab-control :titles="['流行', '新款', '精选']"
-                 @tabClick="tabClick"
+                 @itemClick="tabClick"
                  ref="tabControl1"
                  :probe-type="3"
                  class="tab-control" v-show="isTabFixed"/>
@@ -100,11 +100,16 @@
     methods: {
     	//事件监听相关方法
 
+      /*实现点击切换商品种类的思路是通过点击子组件中的3个种类（pop,new,sell)，
+      向父组件（Home)提交对应index，
+      再通过index的不同来修改currentType的不同，
+      最后根据currentType的不同来请求不同的数据*/
       tabClick(index) {
+      	//通过点击的种类（pop,new,sell)的不同来更改currentType的值
 	      switch (index) {
           case 0:
           	this.currentType = 'pop'
-            break
+	          break
           case 1:
 	          this.currentType = 'new'
             break
@@ -118,6 +123,7 @@
 
       },
 	    backClick() {
+      	//回到顶部按钮，三个参数分别是x轴位置，y轴位置和滚动延迟
         this.$refs.scroll.scrollTo(0,0,500)
       },
 	    contentScroll(position) {
@@ -128,24 +134,35 @@
 		    this.isTabFixed = (-position.y) > this.tabOffsetTop
 	    },
 	    loadMore() {
+      	//上拉加载更多
 		    this.getHomeGoods(this.currentType)
 	    },
 	    swiperImageLoad() {
+      	//tabControl固定的原理是创建第二个tabControl，平时是隐藏的，当页面滚动到第一个tabControl的offsettop的时候，显示出第二个tabControl,而第二个tabControl是固定在视口的，
+        // 所以看起来是使用了position：fixed，其实只是一个简单的显示隐藏
 		    this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
 	    },
 
 
     	//网络请求相关方法
+
+      //获取首页轮播图和推荐栏的数据
 	    getHomeMultidata() {
 		    getHomeMultidata().then(res => {
 			    this.banners = res.data.banner.list;
 			    this.recommends = res.data.recommend.list;
 		    })
       },
+      //获取首页商品信息输数据
 	    getHomeGoods(type){
+
+      	//由于默认的page值是0，所以每次使用这个方法的时候，page的值+1
 	    	const page = this.goods[type].page + 1
+        //这里的getHomeGoods是axios中的方法，用来向服务器请求数据
 		    getHomeGoods(type,1).then(res => {
+          //向首页的商品列表push进请求过来的res中的每一个商品
           this.goods[type].list.push(...res.data.list)
+          //请求完数据后当前商品的页数从默认的0变为1
           this.goods[type].page += 1
 			    this.$refs.scroll.finishPullUp()
 		    })
