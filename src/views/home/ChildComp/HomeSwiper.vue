@@ -1,7 +1,7 @@
 <template>
   <div class="Swiper">
   <swiper ref="swiper">
-    <swiper-item v-for="item in banners">
+    <swiper-item v-for="item in banners" :key="item.id">
       <div>
         <img :src="item.image" @load="imageLoad">
       </div>
