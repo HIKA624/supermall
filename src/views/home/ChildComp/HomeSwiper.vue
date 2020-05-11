@@ -2,9 +2,9 @@
   <div class="Swiper">
   <swiper ref="swiper">
     <swiper-item v-for="item in banners">
-      <a :href="item.link">
+      <div>
         <img :src="item.image" @load="imageLoad">
-      </a>
+      </div>
     </swiper-item>
   </swiper>
   </div>
